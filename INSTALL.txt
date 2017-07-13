@@ -1,0 +1,33 @@
+Each script can be manipulated on his own, you could therefore install dependencies SEPARATELY. It is suggested, notably because some dependency could be heavy and specially if you don(t use all the scripts.  
+
+
+General Dependencies:
+====================
+
+	python3, python3-pip
+
+
+Dependencies for import.py:
+==========================-
+	pip3 install pysolr
+
+Dependencies for topics.py:
+===========================
+	pip3 install gensim, nltk
+
+	To get appropriate tokenizer, you need to download punkt stemmer (http://www.nltk.org/_modules/nltk/tokenize/punkt.html):
+	In a shell:
+	$python3
+	>>>import nltk
+	>>>nltk.download()
+	Downloader>d
+		identifier> punkt
+	
+Dependencies for graph.py:
+=========================
+	pip3 install pandas, matplotlib
+	apt-get install python3-tk
+	
+Dependencies for topics_visu.py:
+===================================
+	pip3 install wordcloud
