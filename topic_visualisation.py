@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+__author__ = "morban"
+__email__ = "mathieu.orban@openedition.org"
+
 from gensim import models
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud

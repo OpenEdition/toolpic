@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+
+__author__ = "morban"
+__email__ = "mathieu.orban@openedition.org"
+
 import os
 import sys
 from gensim import corpora, models

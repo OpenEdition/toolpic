@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 __author__ ='morban'
+__email__ = "mathieu.orban@openedition.org"
 
 import pysolr
 import os
