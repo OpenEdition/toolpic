@@ -32,7 +32,8 @@ def findNumFound(solr, request, fq=None):
 def importCalenda(year):
     solr = pysolr.Solr(s.url_solr, timeout=20)
     request = 'platformID:{} AND yearFacet:{}'.format(args.platform, year)
-    filter_queries = ['texte_{}:[* TO *]'.format(args.lang)]
+    #filter_queries = ['resume_{}:[* TO *]'.format(args.lang)]
+    filter_queries = ['autodetect_lang:{}'.format(args.lang)]
     numFound = findNumFound(solr, request, fq=filter_queries)
     print(numFound)
     stop = numFound
@@ -57,9 +58,15 @@ def saveInputFiles(results, year):
         else:
             mode = 'w'
         print('\t Processing %s' % write_path)
-        naked_texte = html.unescape(result['texte_fr'])
+        naked_titre = ''
+        naked_texte = ''
+        #naked_titre = html.unescape(result['naked_titre'])
+        if 'naked_texte' in result:
+            naked_texte = html.unescape(result['naked_texte'])
+        if 'naked_titre' in result:
+            naked_titre = html.unescape(result['naked_titre'])
         with open('{}'.format(write_path), mode) as f:
-            f.write(naked_texte)
+            f.writelines([naked_titre, ' ', naked_texte])
 
 if __name__ == '__main__':
     year_list = args.index_list if args.index_list else list(range(args.begin, args.end))

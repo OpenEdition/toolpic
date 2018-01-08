@@ -161,7 +161,8 @@ def gensimProcess(stemming):
     #Filter dictionnary from stop word and token uses only one.
     dictionary.filter_tokens(stop_ids + once_ids)
     if args.memory_care:
-        dictionary.filter_extremes()
+        print('filter extremes')
+        dictionary.filter_extremes(no_below=8, no_above=0.4, keep_n=80000)
     dictionary.compactify()
     corpus_memory_friendly = MyCorpus(dictionary)
     corpus = list()
@@ -174,17 +175,19 @@ def gensimProcess(stemming):
     #corpus = corpora.BleiCorpus('/tmp/corpus.lda-c')
     if args.fit_params:
         print('\tInstantiate searcher')
+        #params_alpha=[0.01, 0.1, 0.25]
+        nums_topics=[20, 50, 100, 175, 300, 400, 500]
         params_alpha=[0.01, 0.1, 0.25, 0.5, 0.75, 1.00]
-        nums_topics=[20, 50, 100, 175, 300]
         searcher = Searcher(nums_topics, params_alpha, corpus, dictionary)
         searcher.search()
     else:
-        lda = models.LdaMulticore(corpus, id2word=dictionary, num_topics=20, iterations=50, passes=25, alpha=0.01, eta=0.01)
+        lda = models.LdaMulticore(corpus, id2word=dictionary, num_topics=500, iterations=50, passes=25, alpha=1, eta=0.01)
         lda.save('lda.model')
 
 
 def setLog():
     level = levels[len(levels)-(args.verbose+1)]
+    print(level)
     logging.basicConfig(filename='lda_model.log', format='(%(levelname)s): %(message)s', level=level)
     return logging.getLogger()
     
